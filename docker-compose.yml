@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    container_name: besocial-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+  db:
+    container_name: postgres
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=besocial
+
+volumes:
+  postgres_data:
